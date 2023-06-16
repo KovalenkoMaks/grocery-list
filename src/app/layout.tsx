@@ -15,11 +15,6 @@ import {
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 
-export const metadata = {
-  title: 'Grocery',
-  description: 'Create your grocery list and save your money',
-}
-
 export const queryClient = new QueryClient()
 export default function Layout({ children }: { children: React.ReactNode }) {
 
