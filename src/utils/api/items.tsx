@@ -32,3 +32,8 @@ export const getItemAdd = async (body: Omit<Iitems, '_id' | 'completed'>) => {
     const res = await axios.post<Iitems[]>(`/`, body);
     return res.data
 }
+
+export const getItemEdit = async (item: Iitems) => {
+    const res = await axios.put<Iitems[]>(`/${item._id}`, item);
+    return res.data
+}

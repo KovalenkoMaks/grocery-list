@@ -7,8 +7,7 @@ import {
     ListItemIcon,
     ListItemText,
     Checkbox,
-    Input,
-    ThemeProvider
+    ThemeProvider,
 } from '@mui/material';
 import { TypographyStyled } from './ListItem.styled';
 import { theme } from '@/utils/mui/theme';
@@ -17,58 +16,18 @@ import { Iitems } from '@/utils/api/items';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useItemsQuery, useMutateCompletedQuery } from '@/utils/hooks/reactQuery/useItemsQuery';
-import { queryClient } from '@/app/layout';
-// import { MutationCache } from 'react-query';
+import { EditForm } from '../editForm/EditForm';
 
 const ListItems = ({ filter }: { filter: string }) => {
     const { data, isLoading } = useItemsQuery(filter);
     const { mutate: toggleCompleted } = useMutateCompletedQuery();
+    const [isEditable, setIsEditable] = React.useState<string>('');
 
-    // const mutation = useMutateCompletedQuery();
-
-    const [isEditable, setIsEditable] = React.useState<string>();
-    const [editableText, setEditableText] = React.useState<Iitems>();
-
-    const handleToggle = async (item: Iitems) => {
-        await toggleCompleted({ item, filter });
+    const handleToggle = (item: Iitems) => {
+        if (isEditable !== '') return;
+        toggleCompleted({ item, filter });
     };
-    // const test = queryClient.getQueryData(['items', 'viewAll']);
-    // console.log(test);
 
-
-    const handleTextChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        if (e.target.name === 'value') {
-            setEditableText((prevText) => {
-                if (prevText) {
-                    return {
-                        ...prevText,
-                        value: e.target.value,
-                    };
-                }
-                return prevText;
-            });
-        };
-        if (e.target.name === 'quantity' && typeof (+e.target.value) === 'string') {
-
-            return
-
-        } else {
-            setEditableText((prevText) => {
-                if (prevText) {
-                    return {
-                        ...prevText,
-                        quantity: +e.target.value,
-                    };
-                }
-                return prevText;
-            });
-
-        }
-
-    };
-    const handleTextBlur = () => {
-        setIsEditable('0');
-    };
     if (isLoading) return <div>Loading...</div>
     return (
         <ThemeProvider theme={theme}>
@@ -80,12 +39,27 @@ const ListItems = ({ filter }: { filter: string }) => {
                         <ListItem
                             key={e._id}
                             secondaryAction={
-                                <Icons id={e._id} />
+                                <Icons
+                                    item={e}
+                                    id={e._id}
+                                    isEditable={isEditable}
+                                    setIsEditable={setIsEditable}
+                                />
                             }
-                            sx={{ borderBottom: '1px solid #999' }}
+                            sx={{
+                                borderBottom: '1px solid #999',
+
+                            }}
                         >
                             <ListItemButton
+                                focusVisibleClassName={'edit'}
+                                disableGutters
                                 onClick={() => handleToggle(e)}
+                                sx={{
+                                    '&.edit': {
+                                        backgroundColor: '#222222',
+                                    },
+                                }}
                             >
                                 <ListItemIcon>
                                     <Checkbox
@@ -97,65 +71,39 @@ const ListItems = ({ filter }: { filter: string }) => {
                                                 color: '#454545',
                                             }
                                         }}
-
                                     />
                                 </ListItemIcon>
-                                <ListItemText
-                                    sx={{ width: '100%', marginRight: '10px' }}
-                                    id={`line-item-${e._id}`}
-                                    primary={
-                                        isEditable === e._id ? (
-                                            <Input
-                                                name='value'
-                                                type="text"
-                                                value={editableText?.value}
-                                                onChange={e => handleTextChange(e)}
-                                                // onBlur={handleTextBlur}
-                                                autoFocus
-                                                fullWidth={true}
-                                                sx={{
-                                                    width: '100%',
-                                                    color: '#999',
-                                                    overflow: 'hidden',
-                                                    textOverflow: 'hidden',
-                                                    whiteSpace: 'nowrap'
-                                                }}
-                                            />
-                                        ) : (
-                                            <TypographyStyled
-                                                className={e.completed ? 'checked' : ''}
-                                                noWrap
-                                            >{e.value}</TypographyStyled>
-                                        )}
-                                />
-                                <ListItemText
-                                    id={`line-item-${e._id}`}
-                                    sx={{ textAlign: 'end' }}
-                                    primary={
-                                        isEditable === e._id ? (
-                                            <Input
-                                                name='quantity'
-                                                type="text"
-                                                value={editableText?.quantity}
-                                                onChange={e => handleTextChange(e)}
-                                                onBlur={handleTextBlur}
-                                                // autoFocus
-                                                fullWidth={true}
-                                                sx={{
-                                                    width: '100%',
-                                                    color: '#999',
-                                                    overflow: 'hidden',
-                                                    textOverflow: 'hidden',
-                                                    whiteSpace: 'nowrap'
-                                                }}
-                                            />
-                                        ) : (
-                                            <TypographyStyled
-                                                className={e.completed ? 'checked' : ''}
-                                                noWrap
-                                            >{e.quantity}</TypographyStyled>
-                                        )}
-                                />
+
+                                {isEditable === e._id
+                                    ?
+                                    <EditForm
+                                        setIsEditable={setIsEditable}
+                                        item={e}
+                                    />
+                                    :
+                                    <>
+                                        <ListItemText
+                                            sx={{ width: '100%', marginRight: '10px' }}
+                                            id={`line-item-${e._id}`}
+                                            primary={
+                                                <TypographyStyled
+                                                    className={e.completed ? 'checked' : ''}
+                                                    noWrap
+                                                >{e.value}</TypographyStyled>
+                                            }
+                                        />
+                                        <ListItemText
+                                            id={`line-item-${e._id}`}
+                                            sx={{ textAlign: 'end' }}
+                                            primary={
+                                                <TypographyStyled
+                                                    className={e.completed ? 'checked' : ''}
+                                                    noWrap
+                                                >{e.quantity}</TypographyStyled>
+                                            }
+                                        />
+                                    </>
+                                }
                             </ListItemButton>
                         </ListItem >
                     );

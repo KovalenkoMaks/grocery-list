@@ -1,5 +1,5 @@
 import { queryClient } from "@/app/layout"
-import { Iitems, getAllItems, getCompletedToggle } from "@/utils/api/items"
+import { Iitems, getAllItems, getCompletedToggle, getItemAdd, getItemDelete, getItemEdit } from "@/utils/api/items"
 // import { queryClient } from "@/utils/providers/ReacrQueryProvider"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { toast } from "react-toastify"
@@ -32,5 +32,31 @@ export const useMutateCompletedQuery = () => {
         mutationFn: (variables: Variables) =>
             getCompletedToggle(variables.item._id, { completed: !variables.item.completed }),
         onSuccess: () => queryClient.invalidateQueries({ queryKey: ['items'] }),
+    })
+}
+
+export const useMutateDeleteQuery = () => {
+    return useMutation({
+        mutationFn: (id: string) =>
+            getItemDelete(id),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['items'] })
+    })
+}
+
+export const useMutateAddQuery = () => {
+    return useMutation({
+        mutationFn: (variables: Omit<Iitems, '_id' | 'completed'>) => getItemAdd(variables),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['items'] }),
+    })
+}
+
+export const useMutateEditQuery = (setIsEditable: (value: string) => void) => {
+    return useMutation({
+        mutationFn: (item: Iitems) =>
+            getItemEdit(item),
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ['items'] }),
+                setIsEditable('')
+        }
     })
 }

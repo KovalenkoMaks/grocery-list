@@ -1,9 +1,8 @@
 import Filter from "@/components/filter/Filter"
-import ListForm from "@/components/listForm/ListForm"
-import ListItems from "@/components/listItems/ListItems"
+import ListForm from "@/components/addForm/AddForm"
 
 export const metadata = {
-    title: 'Grocery',
+    title: 'Grocery list',
     description: 'Create your grocery list and save your money',
 }
 

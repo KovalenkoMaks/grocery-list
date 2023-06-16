@@ -5,16 +5,16 @@ import { theme } from '@/utils/mui/theme';
 import { getItemAdd } from '@/utils/api/items';
 import { useMutation } from '@tanstack/react-query'
 import { queryClient } from '@/app/layout';
+import { useMutateAddQuery } from '@/utils/hooks/reactQuery/useItemsQuery';
 interface Iitem {
     value: string,
     quantity: number,
 }
 
 const ListForm = () => {
-    const mutation = useMutation({
-        mutationFn: (variables: Iitem) => getItemAdd(variables),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['items'] }),
-    })
+
+    const mutation = useMutateAddQuery();
+
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget);
