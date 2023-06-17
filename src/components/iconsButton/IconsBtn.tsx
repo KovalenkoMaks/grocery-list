@@ -1,8 +1,10 @@
 import { Button, Tooltip } from "@mui/material"
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
-import { SetIsEditable } from "@/utils/types/types";
 
+type SetIsEditable = {
+    setIsEditable: (value: string) => void;
+}
 
 export const IconsBtn = ({ setIsEditable }: SetIsEditable) => {
     return (<>
