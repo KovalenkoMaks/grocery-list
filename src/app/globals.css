@@ -33,18 +33,8 @@ a {
   color: inherit;
 }
 
-/* .container{
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 15px;
-  max-width: 1200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #010101;
-} */
 .container{
-    height: 100vh;
+    height: 90vh;
     margin: 0 auto;
     padding-left: 15px;
     padding-right: 15px;

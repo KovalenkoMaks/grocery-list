@@ -1,15 +1,9 @@
 import axios from "axios";
+import { Iitems } from "../types/types";
 
 axios.defaults.baseURL = 'https://grocery-serv.onrender.com/api/items';
 // axios.defaults.baseURL = 'http://localhost:8080/api/items';
 
-
-export interface Iitems {
-    _id: string,
-    value: string,
-    quantity: number,
-    completed: boolean,
-}
 
 export const getAllItems = async (filter: string) => {
     const res = await axios.get<Iitems[]>(`/${filter}`);
@@ -17,8 +11,6 @@ export const getAllItems = async (filter: string) => {
 }
 
 export const getCompletedToggle = async (id: string, body: object) => {
-    // console.log(id);
-
     const res = await axios.patch<Iitems[]>(`/${id}/completed`, body);
     return res.data;
 }

@@ -9,13 +9,6 @@ const CustomFormControlLabel = styled(FormControlLabel)(({ checked }) => ({
     color: checked ? 'white' : '#999',
 }));
 
-// interface FilterProps {
-//     items: Iitems[];
-//     setFilteredItems: (filteredItems: Iitems[]) => void;
-//     filter: string;
-//     setFilter: (filter: string) => void;
-// }
-
 export default function Filter() {
     const [filter, setFilter] = React.useState('viewAll')
 
