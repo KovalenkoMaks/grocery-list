@@ -1,7 +1,7 @@
-import { queryClient } from "@/app/layout"
-import { Iitems, getAllItems, getCompletedToggle, getItemAdd, getItemDelete, getItemEdit } from "@/utils/api/items"
-// import { queryClient } from "@/utils/providers/ReacrQueryProvider"
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { getAllItems, getCompletedToggle, getItemAdd, getItemDelete, getItemEdit } from "@/utils/api/items"
+import { queryClient } from "@/utils/providers/ReacrQueryProvider"
+import { IitemToAdd, Iitems, SetIsEditable } from "@/utils/types/types"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { toast } from "react-toastify"
 
 
@@ -45,12 +45,12 @@ export const useMutateDeleteQuery = () => {
 
 export const useMutateAddQuery = () => {
     return useMutation({
-        mutationFn: (variables: Omit<Iitems, '_id' | 'completed'>) => getItemAdd(variables),
+        mutationFn: (variables: IitemToAdd) => getItemAdd(variables),
         onSuccess: () => queryClient.invalidateQueries({ queryKey: ['items'] }),
     })
 }
 
-export const useMutateEditQuery = (setIsEditable: (value: string) => void) => {
+export const useMutateEditQuery = (setIsEditable: SetIsEditable) => {
     return useMutation({
         mutationFn: (item: Iitems) =>
             getItemEdit(item),
