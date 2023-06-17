@@ -1,16 +1,20 @@
 import Filter from "@/components/filter/Filter"
-import ListForm from "@/components/addForm/AddForm"
+import { AddForm } from "@/components/addForm/AddForm"
+import { getServerSession } from "next-auth";
 
 export const metadata = {
     title: 'Grocery list',
     description: 'Create your grocery list and save your money',
 }
 
-export default function List() {
+export default async function List() {
+    const session = await getServerSession();
+    const user = session?.user?.email as string;
+
     return (
         <section>
-            <ListForm />
-            <Filter />
+            <AddForm user={user} />
+            <Filter user={user} />
         </section>
     )
 

@@ -9,23 +9,3 @@
   text-align: center;
   margin-bottom: 20px;
 }
-.link{
-        display: flex;
-        align-items: center;
-        height: 50px;
-        justify-content: center;
-        max-width: 196px;
-        padding: 0 10px;
-        font-weight: 600;
-        font-style: normal;
-        line-height: 22px;
-        font-size: 18px;
-        outline: 1px solid #999;
-        text-align: center;
-        text-transform: uppercase;
-}
-.link:hover{
-          outline: 1px solid white;
-          color: white;
-
-}

@@ -8,7 +8,7 @@ type SetIsEditable = {
 
 export const IconsBtn = ({ setIsEditable }: SetIsEditable) => {
     return (<>
-        <Tooltip title="done" id={'done'}>
+        <Tooltip title="done">
             <Button
                 type="submit"
                 name="done"

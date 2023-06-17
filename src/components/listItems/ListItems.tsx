@@ -8,12 +8,19 @@ import { useItemsQuery } from '@/utils/hooks/reactQuery/useItemsQuery';
 import { ListItemTextEl } from './listItemText/ListItemText';
 import { ListItemForm } from './listItemForm/ListItemForm';
 import { Spiner } from '../spiner/Spiner';
+import { IsEmpty } from '../isEmpty/IsEmpty';
 
-const ListItems = ({ filter }: { filter: string }) => {
-    const { data: items, isLoading } = useItemsQuery(filter);
+type IListItems = {
+    filter: string,
+    user: string
+}
+const ListItems = ({ filter, user }: IListItems) => {
     const [isEditable, setIsEditable] = React.useState<string>('');
 
-    if (isLoading) return <Spiner />
+    const { data: items, isLoading: dataIsLoading } = useItemsQuery(filter, user);
+
+    if (dataIsLoading) return <Spiner />
+    if (items?.length === 0) return <IsEmpty />
     return (
         <ThemeProvider theme={theme}>
             <List

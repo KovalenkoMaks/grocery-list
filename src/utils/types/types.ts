@@ -13,6 +13,7 @@ export interface IListItemForm {
 export interface IitemToAdd {
     value: string,
     quantity: number,
+    user: string,
 }
 
 export type IListItemTextEl = {

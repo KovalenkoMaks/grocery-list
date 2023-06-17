@@ -3,12 +3,11 @@ import { queryClient } from "@/utils/providers/ReacrQueryProvider"
 import { IitemToAdd, Iitems, SetIsEditable } from "@/utils/types/types"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { toast } from "react-toastify"
+import { useSessionUser } from "../auth/useSessionUser"
 
-
-
-export const useItemsQuery = (filter: string) => {
+export const useItemsQuery = (filter: string, user: string) => {
     return useQuery<Iitems[]>({
-        queryFn: () => getAllItems(filter),
+        queryFn: () => getAllItems(filter, user as string),
         queryKey: ['items', filter],
         keepPreviousData: true,
         staleTime: 2000 * 30,
@@ -44,8 +43,11 @@ export const useMutateDeleteQuery = () => {
 }
 
 export const useMutateAddQuery = () => {
+    const session = useSessionUser();
+    const user = session?.data?.user?.email ?? '';
+
     return useMutation({
-        mutationFn: (variables: IitemToAdd) => getItemAdd(variables),
+        mutationFn: (variables: IitemToAdd) => getItemAdd({ ...variables, user }),
         onSuccess: () => queryClient.invalidateQueries({ queryKey: ['items'] }),
     })
 }

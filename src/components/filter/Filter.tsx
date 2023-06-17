@@ -9,8 +9,9 @@ const CustomFormControlLabel = styled(FormControlLabel)(({ checked }) => ({
     color: checked ? 'white' : '#999',
 }));
 
-export default function Filter() {
+export default function Filter({ user }: { user: string }) {
     const [filter, setFilter] = React.useState('viewAll')
+    // console.log(user);
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFilter(e.currentTarget.value);
@@ -24,7 +25,7 @@ export default function Filter() {
                 <span>|</span>
                 <CustomFormControlLabel sx={{ margin: 0 }} labelPlacement='top' checked={filter === 'completed'} value="completed" label="Completed" control={<Radio sx={{ display: 'none' }} />} />
             </RadioGroupStyled>
-            <ListItems filter={filter} />
+            <ListItems user={user} filter={filter} />
 
         </>
     );

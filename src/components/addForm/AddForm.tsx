@@ -6,7 +6,7 @@ import { useMutateAddQuery } from '@/utils/hooks/reactQuery/useItemsQuery';
 import { IitemToAdd } from '@/utils/types/types';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-const ListForm = () => {
+export const AddForm = ({ user }: { user: string }) => {
 
     const mutation = useMutateAddQuery();
 
@@ -19,6 +19,7 @@ const ListForm = () => {
         const itemToAdd: IitemToAdd = {
             value: formData.get('value') as string,
             quantity: isNaN(quantity) ? 1 : quantity,
+            user,
         };
         mutation.mutate(itemToAdd);
         e.currentTarget.reset()
@@ -66,4 +67,3 @@ const ListForm = () => {
     );
 }
 
-export default ListForm
