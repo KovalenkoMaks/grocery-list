@@ -1,12 +1,12 @@
 import axios from "axios";
-import { Iitems } from "../types/types";
+import { Item } from "../types/types";
 
 axios.defaults.baseURL = 'https://grocery-serv.onrender.com/api/items';
 // axios.defaults.baseURL = 'http://localhost:8080/api/items';
 
 
 export const getAllItems = async (filter: string, user: string) => {
-    const res = await axios.get<Iitems[]>(`/${filter}`, {
+    const res = await axios.get<Item[]>(`/${filter}`, {
         params: {
             user: user,
         }
@@ -16,26 +16,25 @@ export const getAllItems = async (filter: string, user: string) => {
 }
 
 export const getCompletedToggle = async (id: string, body: object) => {
-    const res = await axios.patch<Iitems[]>(`/${id}/completed`, body);
+    const res = await axios.patch<Item>(`/${id}/completed`, body);
     return res.data;
 }
 
 export const getItemDelete = async (id: string) => {
-    const res = await axios.delete<Iitems[]>(`/${id}`);
+    const res = await axios.delete<Item[]>(`/${id}`);
     return res.data
 }
 type AddItem = {
-    // _id: string,
     value: string,
     quantity: number,
     user: string
 }
 export const getItemAdd = async (body: AddItem) => {
-    const res = await axios.post<Iitems[]>(`/`, body);
+    const res = await axios.post<Item>(`/`, body);
     return res.data
 }
 
-export const getItemEdit = async (item: Iitems) => {
-    const res = await axios.put<Iitems[]>(`/${item._id}`, item);
+export const getItemEdit = async (item: Item) => {
+    const res = await axios.put<Item>(`/${item._id}`, item);
     return res.data
 }

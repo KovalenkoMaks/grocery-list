@@ -1,7 +1,5 @@
-import Link from "next/link";
 import style from './page.module.css'
-import { signIn } from "next-auth/react";
-import { SignInLink } from '../components/signInLink/SignInLink'
+import { SignInLink } from "@/components/signInLink/SignInLink";
 export const metadata = {
   title: 'Grocery',
   description: 'Create your grocery list and save your money',

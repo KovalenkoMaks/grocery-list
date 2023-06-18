@@ -1,4 +1,4 @@
-export interface Iitems {
+export type Item = {
     _id: string,
     value: string,
     quantity: number,
@@ -6,20 +6,23 @@ export interface Iitems {
 }
 export type SetIsEditable = (value: string) => void;
 
-export interface IListItemForm {
-    item: Iitems,
+export type ListItemForm = {
+    item: Item,
     setIsEditable: SetIsEditable;
 }
-export interface IitemToAdd {
+export type ItemToAdd = {
     value: string,
     quantity: number,
     user: string,
 }
 
-export type IListItemTextEl = {
-    setIsEditable: SetIsEditable,
-    item: Iitems,
+export interface ListItemTextEl extends ListItemForm {
     isEditable: string,
     filter: string,
 };
 
+export enum FilterType {
+    ViewAll = 'viewAll',
+    Completed = 'completed',
+    Active = 'active',
+}

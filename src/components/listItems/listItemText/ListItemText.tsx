@@ -14,6 +14,8 @@ export const ListItemTextEl = ({ item, setIsEditable, isEditable, filter }: ILis
         toggleCompleted({ item, filter });
     };
 
+    //checkBox to anotger component
+
     return (
         <ListItem
             sx={{ borderBottom: '1px solid #999' }}

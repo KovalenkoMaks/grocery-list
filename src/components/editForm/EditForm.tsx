@@ -3,11 +3,12 @@ import { Box, TextField } from '@mui/material';
 import { KeyboardEvent } from 'react';
 import React, { useEffect, useRef } from 'react';
 import { IconsBtn } from '../iconsButton/IconsBtn';
-import { IListItemForm, Iitems } from '@/utils/types/types';
+import { ListItemForm, Item } from '@/utils/types/types';
+import { toast } from 'react-toastify';
 
 
 
-export const EditForm = ({ item, setIsEditable }: IListItemForm) => {
+export const EditForm = ({ item, setIsEditable }: ListItemForm) => {
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -22,8 +23,11 @@ export const EditForm = ({ item, setIsEditable }: IListItemForm) => {
         const formData = new FormData(e.currentTarget);
         const quantityValue = formData.get('quantity') as string;
         const quantity = parseInt(quantityValue, 10);
+        if (formData.get('value') === "") {
 
-        const itemToAdd: Iitems = {
+            return toast.info("Field is empty")
+        }
+        const itemToAdd: Item = {
             value: formData.get('value') as string,
             quantity: isNaN(quantity) ? 1 : quantity,
             _id: item._id,

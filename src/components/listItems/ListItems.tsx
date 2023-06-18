@@ -1,5 +1,5 @@
 'use client'
-import * as React from 'react';
+import React from 'react';
 import { List, ThemeProvider } from '@mui/material';
 import { theme } from '@/utils/mui/theme';
 import { ToastContainer } from 'react-toastify';

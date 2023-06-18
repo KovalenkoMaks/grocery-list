@@ -3,10 +3,14 @@ import * as React from 'react';
 import { ThemeProvider, Box, TextField, Button } from '@mui/material/';
 import { theme } from '@/utils/mui/theme';
 import { useMutateAddQuery } from '@/utils/hooks/reactQuery/useItemsQuery';
-import { IitemToAdd } from '@/utils/types/types';
+import { ItemToAdd } from '@/utils/types/types';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+// import { useFilterContext } from '@/useContext/useFilterContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const AddForm = ({ user }: { user: string }) => {
+    // const { filter } = useFilterContext();
 
     const mutation = useMutateAddQuery();
 
@@ -15,8 +19,11 @@ export const AddForm = ({ user }: { user: string }) => {
         const formData = new FormData(e.currentTarget);
         const quantityValue = formData.get('quantity') as string;
         const quantity = parseInt(quantityValue, 10);
+        if (formData.get('value') === "") {
 
-        const itemToAdd: IitemToAdd = {
+            return toast.info("Field is empty")
+        }
+        const itemToAdd: ItemToAdd = {
             value: formData.get('value') as string,
             quantity: isNaN(quantity) ? 1 : quantity,
             user,
@@ -63,6 +70,8 @@ export const AddForm = ({ user }: { user: string }) => {
                 <Button color='secondary' type='submit' variant="outlined" sx={{ width: '160px' }}>Add</Button>
             </Box>
             <ReactQueryDevtools />
+            {/* <ToastContainer autoClose={1000} /> */}
+
         </ThemeProvider >
     );
 }
