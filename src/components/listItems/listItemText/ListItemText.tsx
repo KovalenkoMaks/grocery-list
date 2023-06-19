@@ -23,13 +23,13 @@ export const ListItemTextEl = ({ item, setIsEditable, isEditable, filter }: TLis
                     <Tooltip title="Edit">
                         <EditIcon
                             onClick={() => setIsEditable(item._id)}
-                            sx={{ fill: '#999', marginRight: '10px', ":hover": { fill: 'white' } }} />
+                            sx={{ fill: '#999', marginRight: '10px', cursor: 'pointer', ":hover": { fill: 'white' }, }} />
                     </Tooltip>
 
                     <Tooltip title="Delete">
                         <DeleteIcon
                             onClick={() => itemDelete(item._id)}
-                            sx={{ fill: '#999', ":hover": { fill: 'white' } }} />
+                            sx={{ fill: '#999', cursor: 'pointer', ":hover": { fill: 'white' } }} />
                     </Tooltip>
                 </>}
         >

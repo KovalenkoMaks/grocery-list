@@ -16,6 +16,7 @@ export const IconsBtn = ({ setIsEditable }: SetIsEditable) => {
                     minWidth: '10px',
                     textAlign: 'center',
                     padding: '0',
+                    cursor: 'pointer',
                     ":hover": { backgroundColor: '#222222' }
                 }}
             >
@@ -34,6 +35,7 @@ export const IconsBtn = ({ setIsEditable }: SetIsEditable) => {
                     minWidth: '10px',
                     textAlign: 'center',
                     padding: '0',
+                    cursor: 'pointer',
                     ":hover": { backgroundColor: '#222222' }
                 }}
             >
