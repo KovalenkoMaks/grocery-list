@@ -1,7 +1,6 @@
 import Filter from "@/components/filter/Filter"
 import { AddForm } from "@/components/addForm/AddForm"
 import { getServerSession } from "next-auth";
-import { FilterContextProvider } from "@/useContext/useFilterContext";
 
 export const metadata = {
     title: 'Grocery list',
@@ -14,10 +13,8 @@ export default async function List() {
 
     return (
         <section>
-            <FilterContextProvider>
-                <AddForm user={user} />
-                <Filter user={user} />
-            </FilterContextProvider>
+            <AddForm user={user} />
+            <Filter user={user} />
         </section>
     )
 

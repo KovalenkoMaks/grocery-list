@@ -1,9 +1,9 @@
 import { Checkbox, ListItem, ListItemButton, ListItemIcon, TextField, Tooltip } from "@mui/material";
 import { useEffect, useRef } from "react";
 import { EditForm } from "@/components/editForm/EditForm";
-import { IListItemForm } from "@/utils/types/types";
+import { ListItemForm } from "@/utils/types/types";
 
-export const ListItemForm = ({ item, setIsEditable }: IListItemForm) => {
+export const ListItemform = ({ item, setIsEditable }: ListItemForm) => {
     const listItemRef = useRef<HTMLLIElement>(null);
 
     const handleClickOutside = (e: MouseEvent) => {

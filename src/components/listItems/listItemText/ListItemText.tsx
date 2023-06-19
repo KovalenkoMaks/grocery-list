@@ -3,18 +3,16 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { TypographyStyled } from "./ListItem.styled";
 import { useMutateCompletedQuery, useMutateDeleteQuery } from "@/utils/hooks/reactQuery/useItemsQuery";
-import { IListItemTextEl, Iitems } from "@/utils/types/types";
+import { TListItemTextEl, Item } from "@/utils/types/types";
 
-export const ListItemTextEl = ({ item, setIsEditable, isEditable, filter }: IListItemTextEl) => {
+export const ListItemTextEl = ({ item, setIsEditable, isEditable, filter }: TListItemTextEl) => {
     const { mutate: itemDelete } = useMutateDeleteQuery()
     const { mutate: toggleCompleted } = useMutateCompletedQuery();
 
-    const handleToggle = (item: Iitems) => {
+    const handleToggle = (item: Item) => {
         if (isEditable !== '') return;
         toggleCompleted({ item, filter });
     };
-
-    //checkBox to anotger component
 
     return (
         <ListItem

@@ -1,9 +1,7 @@
 import axios from "axios";
-import { Item } from "../types/types";
+import { Item, ItemToAdd } from "../types/types";
 
 axios.defaults.baseURL = 'https://grocery-serv.onrender.com/api/items';
-// axios.defaults.baseURL = 'http://localhost:8080/api/items';
-
 
 export const getAllItems = async (filter: string, user: string) => {
     const res = await axios.get<Item[]>(`/${filter}`, {
@@ -24,12 +22,8 @@ export const getItemDelete = async (id: string) => {
     const res = await axios.delete<Item[]>(`/${id}`);
     return res.data
 }
-type AddItem = {
-    value: string,
-    quantity: number,
-    user: string
-}
-export const getItemAdd = async (body: AddItem) => {
+
+export const getItemAdd = async (body: ItemToAdd) => {
     const res = await axios.post<Item>(`/`, body);
     return res.data
 }

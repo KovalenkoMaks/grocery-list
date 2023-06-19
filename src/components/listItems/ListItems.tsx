@@ -6,17 +6,14 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useItemsQuery } from '@/utils/hooks/reactQuery/useItemsQuery';
 import { ListItemTextEl } from './listItemText/ListItemText';
-import { ListItemForm } from './listItemForm/ListItemForm';
+import { ListItemform } from './listItemForm/ListItemForm';
 import { Spiner } from '../spiner/Spiner';
 import { IsEmpty } from '../isEmpty/IsEmpty';
+import { IListItems } from '@/utils/types/types';
 
-type IListItems = {
-    filter: string,
-    user: string
-}
+
 const ListItems = ({ filter, user }: IListItems) => {
     const [isEditable, setIsEditable] = React.useState<string>('');
-
     const { data: items, isLoading: dataIsLoading } = useItemsQuery(filter, user);
 
     if (dataIsLoading) return <Spiner />
@@ -29,7 +26,7 @@ const ListItems = ({ filter, user }: IListItems) => {
                     return (
                         isEditable === e._id
                             ?
-                            <ListItemForm key={e._id}
+                            <ListItemform key={e._id}
                                 item={e}
                                 setIsEditable={setIsEditable}
                             />

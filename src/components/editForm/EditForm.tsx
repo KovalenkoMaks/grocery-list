@@ -1,12 +1,10 @@
+import React, { useEffect, useRef } from 'react';
 import { useMutateEditQuery } from '@/utils/hooks/reactQuery/useItemsQuery';
 import { Box, TextField } from '@mui/material';
 import { KeyboardEvent } from 'react';
-import React, { useEffect, useRef } from 'react';
 import { IconsBtn } from '../iconsButton/IconsBtn';
 import { ListItemForm, Item } from '@/utils/types/types';
 import { toast } from 'react-toastify';
-
-
 
 export const EditForm = ({ item, setIsEditable }: ListItemForm) => {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -16,6 +14,7 @@ export const EditForm = ({ item, setIsEditable }: ListItemForm) => {
             inputRef.current.focus();
         }
     }, []);
+
     const mutation = useMutateEditQuery(setIsEditable);
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,7 +23,6 @@ export const EditForm = ({ item, setIsEditable }: ListItemForm) => {
         const quantityValue = formData.get('quantity') as string;
         const quantity = parseInt(quantityValue, 10);
         if (formData.get('value') === "") {
-
             return toast.info("Field is empty")
         }
         const itemToAdd: Item = {
@@ -33,9 +31,7 @@ export const EditForm = ({ item, setIsEditable }: ListItemForm) => {
             _id: item._id,
             completed: item.completed
         };
-
         mutation.mutate(itemToAdd);
-
     }
 
     const onKeyDown = (e: KeyboardEvent<HTMLFormElement>) => {
@@ -81,7 +77,6 @@ export const EditForm = ({ item, setIsEditable }: ListItemForm) => {
                 sx={{ maxWidth: '80px' }}
             />
             <IconsBtn setIsEditable={setIsEditable} />
-
         </Box>
     )
 }

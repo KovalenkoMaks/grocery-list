@@ -1,17 +1,14 @@
 'use client'
-import * as React from 'react';
+import React from 'react';
 import { ThemeProvider, Box, TextField, Button } from '@mui/material/';
 import { theme } from '@/utils/mui/theme';
 import { useMutateAddQuery } from '@/utils/hooks/reactQuery/useItemsQuery';
 import { ItemToAdd } from '@/utils/types/types';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-// import { useFilterContext } from '@/useContext/useFilterContext';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const AddForm = ({ user }: { user: string }) => {
-    // const { filter } = useFilterContext();
-
     const mutation = useMutateAddQuery();
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -20,7 +17,6 @@ export const AddForm = ({ user }: { user: string }) => {
         const quantityValue = formData.get('quantity') as string;
         const quantity = parseInt(quantityValue, 10);
         if (formData.get('value') === "") {
-
             return toast.info("Field is empty")
         }
         const itemToAdd: ItemToAdd = {
@@ -46,7 +42,6 @@ export const AddForm = ({ user }: { user: string }) => {
             >
                 <TextField
                     name='value'
-                    id="standard-basic"
                     placeholder='Add your goods'
                     variant="standard"
                     fullWidth={true}
@@ -56,7 +51,6 @@ export const AddForm = ({ user }: { user: string }) => {
                 />
                 <TextField
                     name='quantity'
-                    id="quantity"
                     placeholder="Quantity"
                     variant="standard"
                     type="number"
@@ -70,8 +64,6 @@ export const AddForm = ({ user }: { user: string }) => {
                 <Button color='secondary' type='submit' variant="outlined" sx={{ width: '160px' }}>Add</Button>
             </Box>
             <ReactQueryDevtools />
-            {/* <ToastContainer autoClose={1000} /> */}
-
         </ThemeProvider >
     );
 }

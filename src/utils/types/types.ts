@@ -16,7 +16,7 @@ export type ItemToAdd = {
     user: string,
 }
 
-export interface ListItemTextEl extends ListItemForm {
+export interface TListItemTextEl extends ListItemForm {
     isEditable: string,
     filter: string,
 };
@@ -25,4 +25,15 @@ export enum FilterType {
     ViewAll = 'viewAll',
     Completed = 'completed',
     Active = 'active',
+}
+
+export type THeader = {
+    user: string,
+    name: string,
+    img: string
+}
+
+export type IListItems = {
+    filter: string,
+    user: string
 }

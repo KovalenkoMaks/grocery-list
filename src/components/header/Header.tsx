@@ -1,10 +1,10 @@
 'use client'
 import { Avatar, Tooltip } from '@mui/material'
-
 import LogoutIcon from '@mui/icons-material/Logout';
 import { HeaderStyled } from './Header.styled';
 import { signOut } from 'next-auth/react';
-export const Header = ({ name, user, img }: { user: string, name: string, img: string }) => {
+import { THeader } from '@/utils/types/types';
+export const Header = ({ name, user, img }: THeader) => {
 
     return (
         <HeaderStyled style={{ textAlign: 'right' }}>
