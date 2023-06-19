@@ -2,6 +2,8 @@ import axios from "axios";
 import { Item, ItemToAdd } from "../types/types";
 
 axios.defaults.baseURL = 'https://grocery-serv.onrender.com/api/items';
+// axios.defaults.baseURL = 'http://localhost:8080/api/items';
+
 
 export const getAllItems = async (filter: string, user: string) => {
     const res = await axios.get<Item[]>(`/${filter}`, {

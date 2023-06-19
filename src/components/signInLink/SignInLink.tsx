@@ -1,9 +1,31 @@
 'use client'
 import { signIn } from "next-auth/react"
-import { LinkStyled } from "./SignInLink.styled"
+import { ButtonStyled } from "./SignInLink.styled"
+import { Session } from "next-auth"
+import { useRouter } from 'next/navigation'
 
-export const SignInLink = () => {
+export const SignInLink = ({ session }: { session: Session | null }) => {
+    const isSession = session === null;
+    const router = useRouter();
+    
+    const handleClick = () => {
+    if (!isSession) {
+      router.push('/list');
+    } else {
+      signIn('google', { callbackUrl: '/list' });
+    }
+  };
     return (
-        <LinkStyled onClick={() => signIn('google', { callbackUrl: '/list' })}>Create your list</LinkStyled>
-    )
+        <>
+            {isSession ? (
+            <ButtonStyled onClick={handleClick}>
+                Create your list
+            </ButtonStyled>
+            ) : (
+            <ButtonStyled onClick={handleClick}>
+                Create your list
+            </ButtonStyled>
+            )}
+        </>
+);
 }

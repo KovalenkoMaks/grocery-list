@@ -37,7 +37,7 @@ export const ListItemTextEl = ({ item, setIsEditable, isEditable, filter }: TLis
                 focusVisibleClassName={'edit'}
                 disableGutters
                 onClick={() => handleToggle(item)}
-                sx={{ '&.edit': { backgroundColor: '#222222' } }}
+                sx={{ '&.edit': { backgroundColor: '#222222' }, maxWidth: '650px' }}
             >
                 <ListItemIcon>
                     <Checkbox

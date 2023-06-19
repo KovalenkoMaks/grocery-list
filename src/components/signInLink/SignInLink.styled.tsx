@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 
-export const LinkStyled = styled(Button)`
+export const ButtonStyled = styled(Button)`
   
         height: 50px;
         font-size: 18px;

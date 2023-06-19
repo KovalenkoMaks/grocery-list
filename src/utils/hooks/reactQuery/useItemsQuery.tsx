@@ -70,11 +70,13 @@ export const useMutateEditQuery = (setIsEditable: SetIsEditable) => {
 
 export const useMutateDeleteQuery = () => {
     return useMutation({
-        mutationFn: (id: string) =>
-            getItemDelete(id),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['items'] })
+        mutationFn: (id: string) => getItemDelete(id),
+            
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['items'] }),
+        
     })
 }
+
 
 export const useMutateAddQuery = () => {
     const queryKeys: [string, string][] = [
@@ -88,7 +90,7 @@ export const useMutateAddQuery = () => {
         getItemAdd({ ...variables, user }), {
         onSuccess: (data: Item) => {
             queryKeys.forEach(key => {
-                queryClient.setQueryData(key, (oldQueryData: any) => {
+                queryClient.setQueryData(key, (oldQueryData: Item[] | undefined) => {
                     if (oldQueryData) {
                         const updatedData = [...oldQueryData, data];
                         return updatedData;
