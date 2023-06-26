@@ -1,10 +1,12 @@
-import { Checkbox, ListItem, ListItemButton, ListItemIcon, TextField, Tooltip } from "@mui/material";
-import { useEffect, useRef } from "react";
-import { EditForm } from "@/components/editForm/EditForm";
-import { ListItemForm } from "@/utils/types/types";
+import React from 'react';
+
+import { ListItem, ListItemButton } from '@mui/material';
+
+import { EditForm } from '@/components/editForm/EditForm';
+import { ListItemForm } from '@/utils/types/types';
 
 export const ListItemform = ({ item, setIsEditable }: ListItemForm) => {
-    const listItemRef = useRef<HTMLLIElement>(null);
+    const listItemRef = React.useRef<HTMLLIElement>(null);
 
     const handleClickOutside = (e: MouseEvent) => {
         if (listItemRef.current && !listItemRef.current.contains(e.target as Node)) {
@@ -12,12 +14,12 @@ export const ListItemform = ({ item, setIsEditable }: ListItemForm) => {
             document.removeEventListener('click', handleClickOutside);
         }
     };
-    useEffect(() => {
+    React.useEffect(() => {
         document.addEventListener('click', handleClickOutside);
 
         return () => {
             document.removeEventListener('click', handleClickOutside);
-        }
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -26,7 +28,7 @@ export const ListItemform = ({ item, setIsEditable }: ListItemForm) => {
             ref={listItemRef}
             key={item._id}
             sx={{
-                borderBottom: '1px solid #999'
+                borderBottom: '1px solid #999',
             }}
         >
             <ListItemButton
@@ -38,20 +40,10 @@ export const ListItemform = ({ item, setIsEditable }: ListItemForm) => {
                     },
                 }}
             >
-                <ListItemIcon>
-                    <Checkbox
-                        checked={item.completed}
-                        sx={{
-                            color: '#999',
-                            '&.Mui-checked': {
-                                color: '#454545',
-                            }
-                        }}
-                    />
-                </ListItemIcon>
+                {/* <CheckBox item={item } /> */}
 
                 <EditForm item={item} setIsEditable={setIsEditable} />
             </ListItemButton>
-        </ListItem >
-    )
-}
+        </ListItem>
+    );
+};

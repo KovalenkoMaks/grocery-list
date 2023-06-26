@@ -1,5 +1,5 @@
-import { useSession } from "next-auth/react"
+import { useSession } from 'next-auth/react';
 
 export const useSessionUser = () => {
-    return useSession()
-}
+    return useSession();
+};

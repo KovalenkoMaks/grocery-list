@@ -1,5 +1,5 @@
-import type { AuthOptions, User } from 'next-auth'
-import GoggleProvider from 'next-auth/providers/google'
+import type { AuthOptions } from 'next-auth';
+import GoggleProvider from 'next-auth/providers/google';
 
 export const authConfig: AuthOptions = {
     providers: [
@@ -8,4 +8,4 @@ export const authConfig: AuthOptions = {
             clientSecret: process.env.GOOGLE_SECRET!,
         }),
     ],
-}
+};

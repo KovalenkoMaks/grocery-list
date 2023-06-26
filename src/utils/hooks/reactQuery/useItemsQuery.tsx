@@ -1,26 +1,30 @@
-import { getAllItems, getCompletedToggle, getItemAdd, getItemDelete, getItemEdit } from "@/utils/api/items"
-import { queryClient } from "@/utils/providers/ReacrQueryProvider"
-import { ItemToAdd, Item, SetIsEditable } from "@/utils/types/types"
-import { useMutation, useQuery } from "@tanstack/react-query"
-import { toast } from "react-toastify"
-import { useSessionUser } from "../auth/useSessionUser"
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+
+import {
+    getAllItems,
+    getCompletedToggle,
+    getItemAdd,
+    getItemDelete,
+    getItemEdit,
+} from '@/utils/api/items';
+import { queryClient } from '@/utils/providers/ReacrQueryProvider';
+import { ItemToAdd, Item, SetIsEditable } from '@/utils/types/types';
+import { useSessionUser } from '../auth/useSessionUser';
 
 export const useItemsQuery = (filter: string, user: string) => {
     return useQuery<Item[]>({
-        queryFn: () => getAllItems(filter, user as string),
+        queryFn: () => getAllItems(filter, user),
         queryKey: ['items', filter],
         keepPreviousData: true,
         staleTime: 2000 * 30,
         onError: (err) => {
             if (err instanceof Error) {
-                return toast.error("Oops... It`s connection troubles");
+                return toast.error('Oops... It`s connection troubles');
             }
         },
-        onSuccess: (data) => {
-            queryClient.setQueryData(['items', filter], data);
-        },
-    })
-}
+    });
+};
 type Variables = {
     item: Item;
     filter: string;
@@ -30,10 +34,9 @@ export const useMutateCompletedQuery = () => {
     return useMutation({
         mutationFn: (variables: Variables) =>
             getCompletedToggle(variables.item._id, { completed: !variables.item.completed }),
-        onSuccess: () => queryClient.invalidateQueries(['items'])
-
-    })
-}
+        onSuccess: () => queryClient.invalidateQueries(['items']),
+    });
+};
 
 export const useMutateEditQuery = (setIsEditable: SetIsEditable) => {
     const queryKeys: [string, string][] = [
@@ -67,16 +70,13 @@ export const useMutateEditQuery = (setIsEditable: SetIsEditable) => {
     });
 };
 
-
 export const useMutateDeleteQuery = () => {
     return useMutation({
         mutationFn: (id: string) => getItemDelete(id),
-            
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['items'] }),
-        
-    })
-}
 
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['items'] }),
+    });
+};
 
 export const useMutateAddQuery = () => {
     const queryKeys: [string, string][] = [
@@ -86,10 +86,9 @@ export const useMutateAddQuery = () => {
     const session = useSessionUser();
     const user = session?.data?.user?.email ?? '';
 
-    return useMutation((variables: ItemToAdd) =>
-        getItemAdd({ ...variables, user }), {
+    return useMutation((variables: ItemToAdd) => getItemAdd({ ...variables, user }), {
         onSuccess: (data: Item) => {
-            queryKeys.forEach(key => {
+            queryKeys.forEach((key) => {
                 queryClient.setQueryData(key, (oldQueryData: Item[] | undefined) => {
                     if (oldQueryData) {
                         const updatedData = [...oldQueryData, data];

@@ -1,11 +1,12 @@
-import Filter from "@/components/filter/Filter"
-import { AddForm } from "@/components/addForm/AddForm"
-import { getServerSession } from "next-auth";
+import { getServerSession } from 'next-auth';
+
+import Filter from '@/components/filter/Filter';
+import { AddForm } from '@/components/addForm/AddForm';
 
 export const metadata = {
     title: 'Grocery list',
     description: 'Create your grocery list and save your money',
-}
+};
 
 export default async function List() {
     const session = await getServerSession();
@@ -16,6 +17,5 @@ export default async function List() {
             <AddForm user={user} />
             <Filter user={user} />
         </section>
-    )
-
+    );
 }

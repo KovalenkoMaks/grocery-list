@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material";
+import { createTheme } from '@mui/material';
 
 export const theme = createTheme({
     palette: {
@@ -14,15 +14,15 @@ export const theme = createTheme({
             defaultProps: {
                 InputLabelProps: {
                     style: {
-                        color: '#999'
-                    }
+                        color: '#999',
+                    },
                 },
                 InputProps: {
                     style: {
                         borderBottom: '1px solid grey',
-                    }
-                }
-            }
+                    },
+                },
+            },
         },
-    }
+    },
 });
