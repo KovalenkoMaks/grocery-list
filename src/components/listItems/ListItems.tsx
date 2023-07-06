@@ -35,6 +35,8 @@ const ListItems = ({ filter, user }: IListItems) => {
 
     if (dataIsLoading) return <Spiner />;
     if (items?.length === 0) return <IsEmpty />;
+
+
     return (
         <ThemeProvider theme={theme}>
             <List sx={{ margin: '0 auto', maxWidth: '1000px' }}>
@@ -50,7 +52,7 @@ const ListItems = ({ filter, user }: IListItems) => {
                             filter={filter}
                         />
                     );
-                })}
+                })}`
             </List>
             <PaginationComponent
                 itemCount={items?.length!}
